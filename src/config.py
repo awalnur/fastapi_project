@@ -21,6 +21,10 @@ class Config(BaseSettings):
 
     APP_VERSION: str = "1"
 
+    class Config:
+        env_file = ".env"
+
+
     @root_validator(skip_on_failure=True)
     def validate_sentry_non_local(cls, data: dict[str, Any]) -> dict[str, Any]:
         if data["ENVIRONMENT"].is_deployed and not data["SENTRY_DSN"]:
